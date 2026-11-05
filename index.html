@@ -29,6 +29,10 @@
             --bg-card: rgba(10, 10, 18, 0.7);
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--bg-dark);
             color: #ffffff;
@@ -145,6 +149,7 @@
             text-decoration: none;
             display: inline-block;
             transition: transform 0.2s;
+            cursor: pointer;
         }
         .btn-gratuita:hover {
             background-position: right center;
@@ -158,6 +163,27 @@
         @keyframes pulseGlow { 
             from { box-shadow: 0 0 20px rgba(138, 43, 226, 0.6); } 
             to { box-shadow: 0 0 35px rgba(0, 255, 255, 0.85); } 
+        }
+
+        /* Estilos de Campos de Formulario Sci-Fi */
+        .form-control-scifi, .form-select-scifi {
+            background-color: rgba(10, 10, 24, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.3s;
+        }
+        .form-control-scifi:focus, .form-select-scifi:focus {
+            background-color: rgba(15, 15, 32, 0.95);
+            border-color: var(--color-blue);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            color: #ffffff;
+            outline: none;
+        }
+        .form-select-scifi option {
+            background-color: #0b0c14;
+            color: #ffffff;
         }
 
         /* Tabs de Programa */
@@ -246,6 +272,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center gap-3">
                     <li class="nav-item"><a class="nav-link text-uppercase font-scifi fs-6 text-light" href="#detalles">Detalles</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase font-scifi fs-6 text-light" href="#registro">Registro</a></li>
                     <li class="nav-item"><a class="nav-link text-uppercase font-scifi fs-6 text-light" href="#programa">Programa</a></li>
                     <li class="nav-item"><a class="nav-link text-uppercase font-scifi fs-6 text-light" href="#patrocinadores">Patrocinadores</a></li>
                     <li class="nav-item">
@@ -256,7 +283,7 @@
         </div>
     </nav>
 
-    <!-- 2. Hero Section (Exacto como Imagen 2) -->
+    <!-- 2. Hero Section -->
     <header class="py-5 my-3 text-center position-relative">
         <div class="container">
             <!-- Ícono Microchip Holográfico -->
@@ -281,7 +308,7 @@
         </div>
     </header>
 
-    <!-- 3. Contador Regresivo (Ubicado bajo el Hero como en Imagen 2) -->
+    <!-- 3. Contador Regresivo -->
     <section id="countdown-section" class="py-3">
         <div class="container">
             <div class="row justify-content-center gap-3 gap-md-4" id="countdown">
@@ -304,8 +331,29 @@
             </div>
         </div>
     </section>
+    
+    <!-- 3.1 Contador de Afluencia en Tiempo Real -->
+    <section id="afluencia-section" class="py-3 text-center">
+        <div class="container">
+            <div class="box-neon p-3 px-4 d-inline-flex flex-column align-items-center position-relative" style="min-width: 280px; max-width: 90%;">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="spinner-grow spinner-grow-sm text-info" role="status" aria-hidden="true" style="animation-duration: 1.5s;"></span>
+                    <span class="font-scifi small text-uppercase tracking-wider text-secondary" style="font-size: 0.75rem; letter-spacing: 2px;">
+                        Afluencia en Vivo
+                    </span>
+                </div>
+                <div class="d-flex align-items-baseline gap-2">
+                    <span id="live-asistentes" class="font-scifi text-neon-blue fw-bold" style="font-size: 2.8rem; line-height: 1;">0</span>
+                    <span class="text-secondary font-scifi small">Asistentes</span>
+                </div>
+                <span class="text-secondary small mt-1" style="font-size: 0.72rem; opacity: 0.75;">
+                    <i class="fa-solid fa-location-dot me-1 text-info"></i> Parque de las Niñas y los Niños
+                </span>
+            </div>
+        </div>
+    </section>
 
-    <!-- 4. Detalles Section (Exacto como Imagen 3) -->
+    <!-- 4. Detalles Section -->
     <section id="detalles" class="py-5 mt-2">
         <div class="container">
             <div class="row g-4">
@@ -317,7 +365,7 @@
                         <p class="fs-5 text-secondary mb-0">25, 26 y 27 de<br>noviembre de 2026</p>
                     </div>
                 </div>
-                <!-- Horario (Reloj con círculo Neón Púrpura) -->
+                <!-- Horario -->
                 <div class="col-md-4">
                     <div class="box-neon p-5 text-center h-100">
                         <div class="d-inline-flex justify-content-center align-items-center rounded-circle mb-4" style="width: 70px; height: 70px; border: 2.5px solid #a855f7; box-shadow: 0 0 20px #8a2be2; background: rgba(138, 43, 226, 0.2);">
@@ -339,7 +387,7 @@
         </div>
     </section>
 
-    <!-- 5. CTA Section (Exacto como Imagen 3) -->
+    <!-- 5. CTA Section (Dirige al formulario embebido) -->
     <section id="cta" class="py-5 text-center">
         <div class="container">
             <div class="box-neon p-5 border-neon-blue mx-auto" style="max-width: 820px;">
@@ -350,6 +398,102 @@
                     <i class="fa-solid fa-dna"></i>
                     <i class="fa-solid fa-rocket"></i>
                     <i class="fa-solid fa-vr-cardboard"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5.1 SECCIÓN DE REGISTRO EMBEBIDA (Conectada directamente al Google Sheet) -->
+    <section id="registro" class="py-5">
+        <div class="container">
+            <div class="box-neon p-4 p-md-5 mx-auto border-neon-blue" style="max-width: 850px;">
+                <div class="text-center mb-4">
+                    <h2 class="font-scifi fs-2 text-neon-blue text-uppercase">Pase Digital de Acceso</h2>
+                    <p class="text-secondary">Completa tus datos y recibirás al instante tu boleto con código QR por correo electrónico.</p>
+                </div>
+
+                <form id="formRegistro" onsubmit="enviarRegistro(event)">
+                    <div class="row g-3">
+                        <!-- Nombre Completo -->
+                        <div class="col-md-12">
+                            <label class="form-label font-scifi small text-light">Nombre Completo *</label>
+                            <input type="text" id="reg-nombre" class="form-control form-control-scifi" placeholder="Ej. Ana Sofía Ramírez Pérez" required>
+                        </div>
+
+                        <!-- Correo Electrónico -->
+                        <div class="col-md-6">
+                            <label class="form-label font-scifi small text-light">Correo Electrónico *</label>
+                            <input type="email" id="reg-email" class="form-control form-control-scifi" placeholder="tucorreo@ejemplo.com" required>
+                        </div>
+
+                        <!-- Teléfono / WhatsApp -->
+                        <div class="col-md-6">
+                            <label class="form-label font-scifi small text-light">Teléfono / WhatsApp *</label>
+                            <input type="tel" id="reg-telefono" class="form-control form-control-scifi" placeholder="33 1234 5678" required>
+                        </div>
+
+                        <!-- Rol -->
+                        <div class="col-md-6">
+                            <label class="form-label font-scifi small text-light">Perfil de Asistente *</label>
+                            <select id="reg-rol" class="form-select form-select-scifi" onchange="gestionarCamposCondicionales()" required>
+                                <option value="" disabled selected>Selecciona tu perfil...</option>
+                                <option value="Estudiante de Preparatoria / Bachillerato">Estudiante de Preparatoria / Bachillerato</option>
+                                <option value="Estudiante de Secundaria / Primaria">Estudiante de Secundaria / Primaria</option>
+                                <option value="Docente / Directivo Escolar">Docente / Directivo Escolar</option>
+                                <option value="Padre de Familia / Tutor">Padre de Familia / Tutor</option>
+                                <option value="Público General / Industria">Público General / Industria</option>
+                            </select>
+                        </div>
+
+                        <!-- Escuela de Procedencia -->
+                        <div class="col-md-6">
+                            <label class="form-label font-scifi small text-light">Escuela / Institución *</label>
+                            <input type="text" id="reg-escuela" class="form-control form-control-scifi" placeholder="Ej. CBTIS 246, CECyTEJ, etc." required>
+                        </div>
+
+                        <!-- Carrera de Interés (Dinámico para prepas) -->
+                        <div class="col-md-12" id="contenedor-carrera" style="display: none;">
+                            <label class="form-label font-scifi small text-info">¿Qué carrera te interesa en el TECMM Campus Zapopan?</label>
+                            <select id="reg-carrera" class="form-select form-select-scifi">
+                                <option value="No especificado" selected>Elige una carrera de interés...</option>
+                                <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
+                                <option value="Ingeniería Electromecánica">Ingeniería Electromecánica</option>
+                                <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                                <option value="Ingeniería en Gestión Empresarial">Ingeniería en Gestión Empresarial</option>
+                                <option value="Licenciatura en Gastronomía">Licenciatura en Gastronomía</option>
+                                <option value="Aún indeciso">Aún indeciso / Deseo orientación vocacional</option>
+                            </select>
+                        </div>
+
+                        <!-- Consentimiento Legal -->
+                        <div class="col-md-12 mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="reg-aviso" required>
+                                <label class="form-check-label text-secondary small" for="reg-aviso">
+                                    He leído y acepto los términos del 
+                                    <a href="https://tecmm.edu.mx/media/documents/AP_SIMPLIFICADO.pdf" target="_blank" class="text-info text-decoration-underline">
+                                        Aviso de Privacidad Simplificado
+                                    </a> del Tecnológico Superior de Jalisco.
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Botón de Envío -->
+                        <div class="col-md-12 text-center mt-4">
+                            <button type="submit" id="btn-submit-registro" class="btn-gratuita font-scifi fs-5 fw-bold text-uppercase border-0">
+                                Confirmar y Generar Boleto QR
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Tarjeta de Confirmación de Registro Exitoso -->
+                <div id="resultado-registro" class="mt-4 text-center p-4 rounded" style="display: none; background: rgba(0, 255, 255, 0.08); border: 1px solid var(--color-blue);">
+                    <i class="fa-solid fa-circle-check fs-1 text-neon-blue mb-3"></i>
+                    <h3 class="font-scifi fs-4 text-white">¡Registro Confirmado con Éxito!</h3>
+                    <p class="text-secondary mb-2">Tu folio único asignado es:</p>
+                    <div id="folio-display" class="font-scifi fs-2 text-neon-blue my-2">TSJ-XXXXXXXX</div>
+                    <p class="text-light small mb-0">Hemos generado tu código QR de acceso y lo enviamos a tu bandeja de entrada. Presenta ese código al ingresar al parque.</p>
                 </div>
             </div>
         </div>
@@ -500,6 +644,12 @@
                         <img src="https://mitarjetajalisco.com/assets/logo_escudo_aej_white.png" alt="Gobierno de Jalisco" class="sponsor-logo">
                     </div>
                 </div>
+                <!-- 6. Gobierno de Zapopan -->
+                <div class="col-6 col-md-4 col-lg">
+                    <div class="sponsor-card">
+                        <img src="https://servicios.zapopan.gob.mx:8000/wwwportal/publicfiles/inline-images/Escudo_ciudadninios.png" alt="Gobierno de Zapopan" class="sponsor-logo">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -516,9 +666,8 @@
                     <a href="https://tecmm.edu.mx/media/documents/AP_SIMPLIFICADO.pdf" target="_blank" class="text-secondary text-decoration-none me-3">
                         <i class="fa-solid fa-shield-halved me-1"></i> Aviso de Privacidad
                     </a>
-                    <a href="https://www.tecmm.edu.mx/" target="_blank" class="text-secondary text-decoration-none me-3">Tecnológico Superior de Jalisco
-                    </a>
-                    <a href="https://www.facebook.com/TecSJ/" target="_blank" class="text-secondary text-decoration-none">
+                    <a href="https://www.tecmm.edu.mx/" target="_blank" class="text-secondary text-decoration-none me-3">Tecnológico Superior de Jalisco</a>
+                    <a href="https://www.facebook.com/TecSJ/" target="_blank" class="text-secondary text-decoration-none me-2">
                         <i class="fa-brands fa-facebook fs-5 align-middle"></i>
                     </a>
                     <a href="https://www.instagram.com/tsjzapopan/?hl=es" target="_blank" class="text-secondary text-decoration-none">
@@ -532,8 +681,70 @@
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Contador en Vivo -->
+    <!-- Lógica de Frontend: Contador, Registro y Sincronización -->
     <script>
+        // PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT (/exec)
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1nODwPQwijzD88cmGexZjqLehZx-c9i7Up283PIYcQPYutdgwQfGZBw4k3wjf4gCd/exec";
+
+        // 1. Mostrar/Ocultar campos condicionales de prepa
+        function gestionarCamposCondicionales() {
+            const rol = document.getElementById("reg-rol").value;
+            const contenedorCarrera = document.getElementById("contenedor-carrera");
+            if (rol.includes("Preparatoria") || rol.includes("Bachillerato")) {
+                contenedorCarrera.style.display = "block";
+            } else {
+                contenedorCarrera.style.display = "none";
+                document.getElementById("reg-carrera").value = "No especificado";
+            }
+        }
+
+        // 2. Envío del Formulario vía POST a Google Apps Script
+        async function enviarRegistro(event) {
+            event.preventDefault();
+            const btnSubmit = document.getElementById("btn-submit-registro");
+            const textoOriginal = btnSubmit.innerHTML;
+
+            const payload = {
+                nombre: document.getElementById("reg-nombre").value.trim(),
+                email: document.getElementById("reg-email").value.trim(),
+                telefono: document.getElementById("reg-telefono").value.trim(),
+                rol: document.getElementById("reg-rol").value,
+                escuela: document.getElementById("reg-escuela").value.trim(),
+                carrera: document.getElementById("reg-carrera").value
+            };
+
+            // Efecto visual de envío
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Generando Pase Digital...';
+
+            try {
+                // Se utiliza text/plain para evitar que el navegador mande OPTIONS (preflight CORS) que Apps Script rechaza
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.status === "success") {
+                    document.getElementById("formRegistro").style.display = "none";
+                    document.getElementById("folio-display").innerText = data.folio;
+                    document.getElementById("resultado-registro").style.display = "block";
+                } else {
+                    alert("Error en el registro: " + (data.message || "Intenta nuevamente."));
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerHTML = textoOriginal;
+                }
+            } catch (err) {
+                console.error("Fallo de red:", err);
+                alert("Hubo un problema de conexión. Por favor verifica tus datos e intenta de nuevo.");
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = textoOriginal;
+            }
+        }
+
+        // 3. Temporizador de Cuenta Regresiva
         document.addEventListener('DOMContentLoaded', () => {
             const countDownDate = new Date("Nov 25, 2026 10:00:00").getTime();
 
@@ -557,6 +768,149 @@
                 }
             }, 1000);
         });
+
+        // =========================================================================
+        // 4. LECTURA DINÁMICA DEL PROGRAMA DESDE GOOGLE SHEETS
+        // =========================================================================
+
+        // Genera el HTML de cada lista respetando los estilos y la hora en neón
+        function renderizarListaActividades(items) {
+            if (!items || items.length === 0) {
+                return '<li class="text-secondary small fst-italic">Sin actividades programadas</li>';
+            }
+            return items.map(item => `
+                <li class="mb-3">
+                    <span class="program-time">${item.hora}</span> ${item.actividad}
+                </li>
+            `).join('');
+        }
+
+        // Actualiza los contenedores de los 3 días en el DOM
+        function actualizarProgramaDinamico(programa) {
+            if (!programa) return;
+
+            for (let i = 1; i <= 3; i++) {
+                const diaData = programa['dia' + i];
+                const tabPane = document.getElementById('day' + i);
+                
+                if (!diaData || !tabPane) continue;
+
+                tabPane.innerHTML = `
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="box-neon p-4 h-100">
+                                <h4 class="font-scifi text-neon-blue mb-4">
+                                    <i class="fa-regular fa-sun me-2"></i>Mañana
+                                </h4>
+                                <ul class="list-unstyled mb-0">
+                                    ${renderizarListaActividades(diaData.manana)}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box-neon p-4 h-100">
+                                <h4 class="font-scifi text-neon-blue mb-4">
+                                    <i class="fa-solid fa-moon me-2"></i>Tarde
+                                </h4>
+                                <ul class="list-unstyled mb-0">
+                                    ${renderizarListaActividades(diaData.tarde)}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Petición GET al Google Apps Script
+        async function sincronizarProgramaEnVivo() {
+            if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("URL_DE_TU_APPS_SCRIPT")) {
+                console.warn("Falta configurar APPS_SCRIPT_URL para el programa dinámico.");
+                return;
+            }
+
+            try {
+                const res = await fetch(APPS_SCRIPT_URL);
+                const data = await res.json();
+
+                if (data.status === "success" && data.programa) {
+                    actualizarProgramaDinamico(data.programa);
+                }
+            } catch (err) {
+                console.warn("No se pudo cargar el programa desde Sheets, manteniendo versión local:", err);
+            }
+        }
+
+        // Llamar a la sincronización al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            sincronizarProgramaEnVivo();
+            // Opcional: refrescar automáticamente cada 60 segundos por si hay cambios en vivo
+            setInterval(sincronizarProgramaEnVivo, 60000);
+        });
+
+        // =========================================================================
+        // 5. SINCRONIZACIÓN EN VIVO (Afluencia + Programa)
+        // =========================================================================
+
+        // Animación suave de incremento en el número de asistentes
+        function animarContador(elementoId, valorFinal) {
+            const el = document.getElementById(elementoId);
+            if (!el) return;
+
+            const inicio = parseInt(el.innerText.replace(/\D/g, "")) || 0;
+            const fin = parseInt(valorFinal) || 0;
+            if (inicio === fin) return;
+
+            const duracion = 1200; // ms
+            const inicioTiempo = performance.now();
+
+            function actualizar(tiempoActual) {
+                const progreso = Math.min((tiempoActual - inicioTiempo) / duracion, 1);
+                // Función de aceleración suave (easeOutQuad)
+                const valorActual = Math.floor(inicio + (fin - inicio) * (1 - (1 - progreso) * (1 - progreso)));
+                el.innerText = valorActual.toLocaleString("es-MX");
+
+                if (progreso < 1) {
+                    requestAnimationFrame(actualizar);
+                } else {
+                    el.innerText = fin.toLocaleString("es-MX");
+                }
+            }
+            requestAnimationFrame(actualizar);
+        }
+
+        // Consulta unificada a Google Apps Script
+        async function sincronizarEnVivo() {
+            if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("URL_DE_TU_APPS_SCRIPT")) {
+                return;
+            }
+
+            try {
+                const res = await fetch(APPS_SCRIPT_URL);
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    // A. Actualizar afluencia de asistentes
+                    if (data.asistentes !== undefined) {
+                        animarContador("live-asistentes", data.asistentes);
+                    }
+
+                    // B. Actualizar programa de actividades
+                    if (data.programa) {
+                        actualizarProgramaDinamico(data.programa);
+                    }
+                }
+            } catch (err) {
+                console.warn("Sincronización en segundo plano pausada:", err);
+            }
+        }
+
+        // Ejecutar al cargar la página y consultar cada 30 segundos
+        document.addEventListener('DOMContentLoaded', () => {
+            sincronizarEnVivo();
+            setInterval(sincronizarEnVivo, 30000);
+        });
+
     </script>
 </body>
 </html>
