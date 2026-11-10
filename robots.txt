@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://leonramos.github.io/landing-universo-TSJ-STEAM/sitemap.xml
