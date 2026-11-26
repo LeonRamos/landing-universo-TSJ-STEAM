@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    
     <!-- 1. SEO Básico y Canónico -->
     <title>Universo TSJ STEAM 2026 | Festival de Ciencia, Tecnología e Innovación</title>
     <meta name="description" content="Participa en el Universo TSJ STEAM 2026 del Tecnológico Superior de Jalisco Campus Zapopan. Entrada gratuita con registro QR. 25, 26 y 27 de noviembre en Parque de las Niñas y los Niños.">
@@ -80,6 +79,7 @@
       }
     }
     </script>
+
     <!-- Favicon Oficial TSJ -->
     <link rel="icon" type="image/png" href="https://www.tecmm.edu.mx/assets/faviconV2.png">
     <link rel="shortcut icon" type="image/png" href="https://www.tecmm.edu.mx/assets/faviconV2.png">
@@ -209,6 +209,117 @@
             letter-spacing: 2px; 
             color: #d1d5db; 
             margin-top: 8px; 
+        }
+
+        /* 3.1 Carrusel de Videos Sci-Fi */
+        .video-carousel-wrapper {
+            position: relative;
+        }
+        .video-track {
+            display: flex;
+            gap: 1.25rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 10px 4px 20px 4px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-purple) rgba(255, 255, 255, 0.05);
+        }
+        .video-track::-webkit-scrollbar {
+            height: 6px;
+        }
+        .video-track::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .video-track::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, var(--color-purple), var(--color-blue));
+            border-radius: 10px;
+        }
+        .video-card {
+            flex: 0 0 290px;
+            scroll-snap-align: start;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .video-card {
+                flex: 0 0 320px;
+            }
+        }
+        .video-thumb-box {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: radial-gradient(circle at center, rgba(138, 43, 226, 0.35), rgba(10, 10, 24, 0.95));
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        .video-thumb-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease, filter 0.4s ease;
+            filter: brightness(0.85);
+        }
+        .video-card:hover .video-thumb-box img {
+            transform: scale(1.07);
+            filter: brightness(1);
+        }
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: rgba(10, 10, 18, 0.75);
+            border: 2px solid var(--color-blue);
+            color: var(--color-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transition: all 0.25s ease;
+        }
+        .video-card:hover .video-play-btn {
+            background: var(--color-purple);
+            border-color: #ffffff;
+            color: #ffffff;
+            transform: translate(-50%, -50%) scale(1.12);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.85);
+        }
+        .carousel-nav-btn {
+            background: rgba(10, 10, 18, 0.85);
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            color: var(--color-blue);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+        }
+        .carousel-nav-btn:hover {
+            background: var(--color-purple);
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.7);
+        }
+
+        /* Modal de Video Sci-Fi */
+        .modal-scifi .modal-content {
+            background: rgba(10, 10, 20, 0.96);
+            border: 1px solid var(--color-blue);
+            box-shadow: 0 0 35px rgba(0, 255, 255, 0.25), 0 0 60px rgba(138, 43, 226, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .modal-scifi .modal-header {
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
         }
 
         /* 4. Botón Entrada Gratuita Animado */
@@ -346,6 +457,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center gap-3">
+                    <li class="nav-item"><a class="nav-link text-uppercase font-scifi fs-6 text-light" href="#galeria-videos">Videos</a></li>
                     <li class="nav-item"><a class="nav-link text-uppercase font-scifi fs-6 text-light" href="#detalles">Detalles</a></li>
                     <li class="nav-item"><a class="nav-link text-uppercase font-scifi fs-6 text-light" href="#registro">Registro</a></li>
                     <li class="nav-item"><a class="nav-link text-uppercase font-scifi fs-6 text-light" href="#programa">Programa</a></li>
@@ -406,32 +518,66 @@
             </div>
         </div>
     </section>
-    
-    <!-- 3.1 Contador de Afluencia en Tiempo Real -->
-    <section id="afluencia-section" class="py-3 text-center">
+
+    <!-- 3.1 Carrusel de Videos del Evento (Google Drive + Modal) -->
+    <section id="galeria-videos" class="py-5">
         <div class="container">
-            <div class="box-neon p-3 px-4 d-inline-flex flex-column align-items-center position-relative" style="min-width: 280px; max-width: 90%;">
-                <div class="d-flex align-items-center gap-2 mb-1">
-                    <span class="spinner-grow spinner-grow-sm text-info" role="status" aria-hidden="true" style="animation-duration: 1.5s;"></span>
-                    <span class="font-scifi small text-uppercase tracking-wider text-secondary" style="font-size: 0.75rem; letter-spacing: 2px;">
-                        Afluencia en Vivo
-                    </span>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
+                <div class="text-center text-md-start">
+                    <h2 class="font-scifi fs-2 text-neon-blue text-uppercase mb-1">
+                        <i class="fa-solid fa-clapperboard me-2"></i>Vive la Experiencia STEAM
+                    </h2>
+                    <p class="text-secondary mb-0">Mira lo que sucede en el Parque de las Niñas y los Niños — haz clic en cualquier video para reproducirlo.</p>
                 </div>
-                <div class="d-flex align-items-baseline gap-2">
-                    <span id="live-asistentes" class="font-scifi text-neon-blue fw-bold" style="font-size: 2.8rem; line-height: 1;">0</span>
-                    <span class="text-secondary font-scifi small">Asistentes</span>
+                <div class="d-flex gap-2">
+                    <button type="button" class="carousel-nav-btn" onclick="desplazarCarrusel(-1)" aria-label="Videos anteriores">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="carousel-nav-btn" onclick="desplazarCarrusel(1)" aria-label="Siguientes videos">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
                 </div>
-                <span class="text-secondary small mt-1" style="font-size: 0.72rem; opacity: 0.75;">
-                    <i class="fa-solid fa-location-dot me-1 text-info"></i> Parque de las Niñas y los Niños
-                </span>
+            </div>
+
+            <div class="video-carousel-wrapper">
+                <div id="video-track" class="video-track">
+                    <!-- Estado de carga inicial -->
+                    <div class="w-100 text-center py-4 text-secondary">
+                        <i class="fa-solid fa-spinner fa-spin text-info fs-3 mb-2"></i>
+                        <p class="small mb-0 font-scifi">Cargando videos del festival...</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Modal Reproductor de Video -->
+    <div class="modal fade modal-scifi" id="videoModal" tabindex="-1" aria-labelledby="videoModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header py-3 px-4">
+                    <h3 class="modal-title font-scifi fs-5 text-neon-blue text-truncate pe-3" id="videoModalTitle">
+                        Universo TSJ STEAM 2026
+                    </h3>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-0 bg-black">
+                    <div class="ratio ratio-16x9">
+                        <iframe id="videoModalIframe"
+                                src=""
+                                title="Reproductor de video Universo TSJ STEAM"
+                                allow="autoplay; fullscreen"
+                                allowfullscreen
+                                style="border: 0;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 4. Detalles Section -->
     <section id="detalles" class="py-5 mt-2">
         <div class="container">
-            <!-- Título invisible para mantener jerarquía SEO estricta (H2) -->
             <h2 class="visually-hidden">Detalles del Evento: Fechas, Horarios y Sede</h2>
             
             <div class="row g-4">
@@ -465,7 +611,7 @@
         </div>
     </section>
 
-    <!-- 5. CTA Section (Dirige al formulario embebido) -->
+    <!-- 5. CTA Section -->
     <section id="cta" class="py-5 text-center">
         <div class="container">
             <div class="box-neon p-5 border-neon-blue mx-auto" style="max-width: 820px;">
@@ -481,7 +627,7 @@
         </div>
     </section>
 
-    <!-- 5.1 SECCIÓN DE REGISTRO EMBEBIDA (Conectada directamente al Google Sheet) -->
+    <!-- 5.1 SECCIÓN DE REGISTRO EMBEBIDA -->
     <section id="registro" class="py-5">
         <div class="container">
             <div class="box-neon p-4 p-md-5 mx-auto border-neon-blue" style="max-width: 850px;">
@@ -492,25 +638,21 @@
 
                 <form id="formRegistro" onsubmit="enviarRegistro(event)">
                     <div class="row g-3">
-                        <!-- Nombre Completo -->
                         <div class="col-md-12">
                             <label class="form-label font-scifi small text-light">Nombre Completo *</label>
                             <input type="text" id="reg-nombre" class="form-control form-control-scifi" placeholder="Ej. Ana Sofía Ramírez Pérez" required>
                         </div>
 
-                        <!-- Correo Electrónico -->
                         <div class="col-md-6">
                             <label class="form-label font-scifi small text-light">Correo Electrónico *</label>
                             <input type="email" id="reg-email" class="form-control form-control-scifi" placeholder="tucorreo@ejemplo.com" required>
                         </div>
 
-                        <!-- Teléfono / WhatsApp -->
                         <div class="col-md-6">
                             <label class="form-label font-scifi small text-light">Teléfono / WhatsApp *</label>
                             <input type="tel" id="reg-telefono" class="form-control form-control-scifi" placeholder="33 1234 5678" required>
                         </div>
 
-                        <!-- Rol -->
                         <div class="col-md-6">
                             <label class="form-label font-scifi small text-light">Perfil de Asistente *</label>
                             <select id="reg-rol" class="form-select form-select-scifi" onchange="gestionarCamposCondicionales()" required>
@@ -523,13 +665,11 @@
                             </select>
                         </div>
 
-                        <!-- Escuela de Procedencia -->
                         <div class="col-md-6">
                             <label class="form-label font-scifi small text-light">Escuela / Institución *</label>
                             <input type="text" id="reg-escuela" class="form-control form-control-scifi" placeholder="Ej. CBTIS 246, CECyTEJ, etc." required>
                         </div>
 
-                        <!-- Carrera de Interés (Dinámico para prepas) -->
                         <div class="col-md-12" id="contenedor-carrera" style="display: none;">
                             <label class="form-label font-scifi small text-info">¿Qué carrera te interesa en el TECMM Campus Zapopan?</label>
                             <select id="reg-carrera" class="form-select form-select-scifi">
@@ -543,7 +683,6 @@
                             </select>
                         </div>
 
-                        <!-- Consentimiento Legal -->
                         <div class="col-md-12 mt-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="reg-aviso" required>
@@ -556,7 +695,6 @@
                             </div>
                         </div>
 
-                        <!-- Botón de Envío -->
                         <div class="col-md-12 text-center mt-4">
                             <button type="submit" id="btn-submit-registro" class="btn-gratuita font-scifi fs-5 fw-bold text-uppercase border-0">
                                 Confirmar y Generar Boleto QR
@@ -565,7 +703,6 @@
                     </div>
                 </form>
 
-                <!-- Tarjeta de Confirmación de Registro Exitoso -->
                 <div id="resultado-registro" class="mt-4 text-center p-4 rounded" style="display: none; background: rgba(0, 255, 255, 0.08); border: 1px solid var(--color-blue);">
                     <i class="fa-solid fa-circle-check fs-1 text-neon-blue mb-3"></i>
                     <h3 class="font-scifi fs-4 text-white">¡Registro Confirmado con Éxito!</h3>
@@ -585,7 +722,6 @@
                 <p class="fs-5 text-secondary">Descubre las actividades planificadas para cada día</p>
             </div>
 
-            <!-- Tabs Nav -->
             <ul class="nav nav-tabs mb-4" id="programTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="day1-tab" data-bs-toggle="tab" data-bs-target="#day1" type="button" role="tab">25 NOV</button>
@@ -598,7 +734,6 @@
                 </li>
             </ul>
 
-            <!-- Tabs Content -->
             <div class="tab-content" id="programTabContent">
                 <!-- Día 1 -->
                 <div class="tab-pane fade show active" id="day1" role="tabpanel">
@@ -692,37 +827,31 @@
         <div class="container text-center">
             <h2 class="font-scifi display-6 text-uppercase mb-5 text-neon-blue">Patrocinadores y Aliados</h2>
             <div class="row justify-content-center align-items-center g-4">
-                <!-- 1. Intel -->
                 <div class="col-6 col-md-4 col-lg">
                     <div class="sponsor-card">
                         <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Intel_logo_%282020%2C_light_blue%29.svg/1920px-Intel_logo_%282020%2C_light_blue%29.svg.png?utm_source=es.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Intel" class="sponsor-logo" loading="lazy" width="160" height="60">
                     </div>
                 </div>
-                <!-- 2. Oracle -->
                 <div class="col-6 col-md-4 col-lg">
                     <div class="sponsor-card">
                         <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Oracle_logo.svg/1920px-Oracle_logo.svg.png" alt="Oracle" class="sponsor-logo" loading="lazy" width="160" height="60">
                     </div>
                 </div>
-                <!-- 3. TSJ Zapopan -->
                 <div class="col-6 col-md-4 col-lg">
                     <div class="sponsor-card">
                         <img src="https://admision.tsj.mx:3001/crm/static/media/logo.b7029655.png" alt="TSJ Zapopan" class="sponsor-logo" loading="lazy" width="160" height="60">
                     </div>
                 </div>
-                <!-- 4. SoftServe -->
                 <div class="col-6 col-md-4 col-lg">
                     <div class="sponsor-card">
                         <img src="https://cdn.uc.assets.prezly.com/ddf4c03a-d313-4c22-a66a-4f9da1c6939e/" alt="SoftServe" class="sponsor-logo" loading="lazy" width="160" height="60">
                     </div>
                 </div>
-                <!-- 5. Gobierno de Jalisco -->
                 <div class="col-6 col-md-4 col-lg">
                     <div class="sponsor-card">
                         <img src="https://mitarjetajalisco.com/assets/logo_escudo_aej_white.png" alt="Gobierno de Jalisco" class="sponsor-logo" loading="lazy" width="160" height="60">
                     </div>
                 </div>
-                <!-- 6. Gobierno de Zapopan -->
                 <div class="col-6 col-md-4 col-lg">
                     <div class="sponsor-card">
                         <img src="https://servicios.zapopan.gob.mx:8000/wwwportal/publicfiles/inline-images/Escudo_ciudadninios.png" alt="Gobierno de Zapopan" class="sponsor-logo" loading="lazy" width="160" height="60">
@@ -759,10 +888,13 @@
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Lógica de Frontend: Contador, Registro y Sincronización -->
+    <!-- Lógica de Frontend: Contador, Videos, Registro y Programa -->
     <script>
-        // PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT (/exec)
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1nODwPQwijzD88cmGexZjqLehZx-c9i7Up283PIYcQPYutdgwQfGZBw4k3wjf4gCd/exec";
+
+        // Respaldo manual opcional: si aún no actualizas Apps Script, puedes pegar aquí los IDs de tus videos de Drive
+        // Ejemplo: { id: "1AbCdEfGhIjKlMnOpQrStUvWxYz", titulo: "Recorrido Robótica TSJ" }
+        const VIDEOS_MANUALES = [];
 
         // 1. Mostrar/Ocultar campos condicionales de prepa
         function gestionarCamposCondicionales() {
@@ -791,12 +923,10 @@
                 carrera: document.getElementById("reg-carrera").value
             };
 
-            // Efecto visual de envío
             btnSubmit.disabled = true;
             btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Generando Pase Digital...';
 
             try {
-                // Se utiliza text/plain para evitar que el navegador mande OPTIONS (preflight CORS) que Apps Script rechaza
                 const response = await fetch(APPS_SCRIPT_URL, {
                     method: "POST",
                     headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -848,10 +978,75 @@
         });
 
         // =========================================================================
-        // 4. LECTURA DINÁMICA DEL PROGRAMA DESDE GOOGLE SHEETS
+        // 4. CARRUSEL DE VIDEOS DESDE GOOGLE DRIVE + MODAL
         // =========================================================================
+        let modalVideoInstancia = null;
 
-        // Genera el HTML de cada lista respetando los estilos y la hora en neón
+        function desplazarCarrusel(direccion) {
+            const track = document.getElementById("video-track");
+            if (!track) return;
+            track.scrollBy({ left: direccion * 340, behavior: "smooth" });
+        }
+
+        function abrirModalVideo(fileId, titulo) {
+            const iframe = document.getElementById("videoModalIframe");
+            const titleEl = document.getElementById("videoModalTitle");
+            const modalEl = document.getElementById("videoModal");
+
+            titleEl.textContent = titulo || "Universo TSJ STEAM 2026";
+            iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
+
+            if (!modalVideoInstancia) {
+                modalVideoInstancia = new bootstrap.Modal(modalEl);
+                // Detener video al cerrar el modal
+                modalEl.addEventListener("hidden.bs.modal", () => {
+                    iframe.src = "";
+                });
+            }
+            modalVideoInstancia.show();
+        }
+
+        function renderizarCarruselVideos(listaVideos) {
+            const track = document.getElementById("video-track");
+            if (!track) return;
+
+            if (!listaVideos || listaVideos.length === 0) {
+                track.innerHTML = `
+                    <div class="box-neon p-4 w-100 text-center">
+                        <i class="fa-solid fa-video text-info fs-2 mb-2"></i>
+                        <p class="font-scifi text-light mb-1">Próximamente: Videos del Festival</p>
+                        <p class="text-secondary small mb-0">Estamos preparando los mejores momentos de Universo TSJ STEAM 2026.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            track.innerHTML = listaVideos.map(video => {
+                const tituloSeguro = (video.titulo || "Video TSJ STEAM").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                const thumbUrl = `https://drive.google.com/thumbnail?id=${video.id}&sz=w640`;
+                return `
+                    <article class="box-neon video-card" onclick="abrirModalVideo('${video.id}', '${tituloSeguro}')" role="button" tabindex="0">
+                        <div class="video-thumb-box">
+                            <img src="${thumbUrl}"
+                                 alt="${tituloSeguro}"
+                                 loading="lazy"
+                                 onerror="this.style.display='none'">
+                            <div class="video-play-btn" aria-hidden="true">
+                                <i class="fa-solid fa-play ms-1"></i>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-scifi fs-6 text-white text-truncate mb-1" title="${tituloSeguro}">${video.titulo}</h3>
+                            <span class="small text-info"><i class="fa-regular fa-circle-play me-1"></i>Ver video</span>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // =========================================================================
+        // 5. LECTURA DINÁMICA UNIFICADA (Programa + Videos desde Apps Script)
+        // =========================================================================
         function renderizarListaActividades(items) {
             if (!items || items.length === 0) {
                 return '<li class="text-secondary small fst-italic">Sin actividades programadas</li>';
@@ -863,14 +1058,12 @@
             `).join('');
         }
 
-        // Actualiza los contenedores de los 3 días en el DOM
         function actualizarProgramaDinamico(programa) {
             if (!programa) return;
 
             for (let i = 1; i <= 3; i++) {
                 const diaData = programa['dia' + i];
                 const tabPane = document.getElementById('day' + i);
-                
                 if (!diaData || !tabPane) continue;
 
                 tabPane.innerHTML = `
@@ -900,66 +1093,9 @@
             }
         }
 
-        // Petición GET al Google Apps Script
-        async function sincronizarProgramaEnVivo() {
-            if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("URL_DE_TU_APPS_SCRIPT")) {
-                console.warn("Falta configurar APPS_SCRIPT_URL para el programa dinámico.");
-                return;
-            }
-
-            try {
-                const res = await fetch(APPS_SCRIPT_URL);
-                const data = await res.json();
-
-                if (data.status === "success" && data.programa) {
-                    actualizarProgramaDinamico(data.programa);
-                }
-            } catch (err) {
-                console.warn("No se pudo cargar el programa desde Sheets, manteniendo versión local:", err);
-            }
-        }
-
-        // Llamar a la sincronización al cargar la página
-        document.addEventListener('DOMContentLoaded', () => {
-            sincronizarProgramaEnVivo();
-            // Opcional: refrescar automáticamente cada 60 segundos por si hay cambios en vivo
-            setInterval(sincronizarProgramaEnVivo, 60000);
-        });
-
-        // =========================================================================
-        // 5. SINCRONIZACIÓN EN VIVO (Afluencia + Programa)
-        // =========================================================================
-
-        // Animación suave de incremento en el número de asistentes
-        function animarContador(elementoId, valorFinal) {
-            const el = document.getElementById(elementoId);
-            if (!el) return;
-
-            const inicio = parseInt(el.innerText.replace(/\D/g, "")) || 0;
-            const fin = parseInt(valorFinal) || 0;
-            if (inicio === fin) return;
-
-            const duracion = 1200; // ms
-            const inicioTiempo = performance.now();
-
-            function actualizar(tiempoActual) {
-                const progreso = Math.min((tiempoActual - inicioTiempo) / duracion, 1);
-                // Función de aceleración suave (easeOutQuad)
-                const valorActual = Math.floor(inicio + (fin - inicio) * (1 - (1 - progreso) * (1 - progreso)));
-                el.innerText = valorActual.toLocaleString("es-MX");
-
-                if (progreso < 1) {
-                    requestAnimationFrame(actualizar);
-                } else {
-                    el.innerText = fin.toLocaleString("es-MX");
-                }
-            }
-            requestAnimationFrame(actualizar);
-        }
-
-        // Consulta unificada a Google Apps Script
         async function sincronizarEnVivo() {
             if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("URL_DE_TU_APPS_SCRIPT")) {
+                renderizarCarruselVideos(VIDEOS_MANUALES);
                 return;
             }
 
@@ -968,27 +1104,25 @@
                 const data = await res.json();
 
                 if (data.status === "success") {
-                    // A. Actualizar afluencia de asistentes
-                    if (data.asistentes !== undefined) {
-                        animarContador("live-asistentes", data.asistentes);
-                    }
-
-                    // B. Actualizar programa de actividades
                     if (data.programa) {
                         actualizarProgramaDinamico(data.programa);
                     }
+                    if (Array.isArray(data.videos) && data.videos.length > 0) {
+                        renderizarCarruselVideos(data.videos);
+                    } else {
+                        renderizarCarruselVideos(VIDEOS_MANUALES);
+                    }
                 }
             } catch (err) {
-                console.warn("Sincronización en segundo plano pausada:", err);
+                console.warn("Sincronización pausada, usando respaldo local:", err);
+                renderizarCarruselVideos(VIDEOS_MANUALES);
             }
         }
 
-        // Ejecutar al cargar la página y consultar cada 30 segundos
         document.addEventListener('DOMContentLoaded', () => {
             sincronizarEnVivo();
-            setInterval(sincronizarEnVivo, 30000);
+            setInterval(sincronizarEnVivo, 60000);
         });
-
     </script>
 </body>
 </html>
